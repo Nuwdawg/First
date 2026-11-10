@@ -1,4 +1,8 @@
-# The pooled-annotator scoring hypothesis
+# The pooled-annotator scoring hypothesis (tested and rejected)
+
+**Outcome: rejected.** The probe below scored 0.39, the value per-annotator scoring
+predicts. The leaderboard follows the organisers' notebook. The rest of this page is
+kept as the record of the test.
 
 ## Observation
 
@@ -73,4 +77,12 @@ only difference.
 | 0.41 or 0.42 | pooled scoring; validate everything with the pooled metric from now on |
 | 0.39 or 0.40 | per-annotator scoring; the gap has another cause |
 
-Result: see `LOG.md`.
+**Result (10 Nov, 08:40 UTC): 0.39.** Per-annotator validation predicts 0.4705 - 0.017
+minus the usual offset, about 0.39; pooled scoring predicted 0.41 to 0.42. The
+leaderboard therefore scores each annotator record separately, and the pooled figure of
+0.4002 matching the public 0.41 was a coincidence.
+
+Two things survive the test. First, the offset between validation and public score is
+now pinned down for this model family: both probes give 0.059 to 0.066. Second, the
+ensembles that reached 0.484 to 0.495 on validation still displayed 0.41, so their
+offset is at least 0.074: at most half of their validation gain is real.

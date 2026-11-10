@@ -28,3 +28,33 @@ to submission 56309562 on all 180 photographs (1,192 masks).
 
 **08:35** Submitted probe 58193731: deployed model, floor 0.70 (1,526 masks). One
 submission left today.
+
+**08:40** Probe 58193731 scored **0.39**. The pooled-annotator hypothesis is rejected:
+the leaderboard moved as per-annotator scoring predicts. The offset between validation
+and public score for the deployed model family is 0.059 to 0.066.
+
+**08:42** Other protocol variants (`analysis/protocols.py`): mean of per-record PQ 0.4826,
+mean of per-photograph PQ 0.4784, first record only 0.4674. None explains the offset.
+
+**08:43** Annotator batches are assigned independently of capture time
+(`analysis/batchtime.py`): the nearest photograph in time shares a batch 4 to 10 % of the
+time against 6 % by chance. A test photograph's annotators cannot be anticipated.
+
+**08:45** Published dataset totals (Ahmadzadeh et al., Scientific Data 2024: 10,244
+filaments in 1,593 annotator records of 958 photographs) against the training file
+(8,199 filaments in 1,154 records of 707 photographs) leave at most 2,045 filaments in
+439 records for the 251 photographs outside the training file: 4.7 filaments per record
+against 7.1 in training. The model detects nearly as many filaments per test photograph
+(6.6 at floor 0.85) as per validation photograph (7.1). If the totals are comparable, the
+test annotators drew about two thirds as many filaments as training annotators did on
+similar images. This uses only aggregate counts printed in the paper's abstract, no
+annotations.
+
+**08:46** Validation split by how many filaments the annotator drew relative to the
+model's detections (`analysis/density2.py`). Records with a ratio below 0.7 (27 records)
+score 0.417 at floor 0.85 and 0.481 at 0.93; records with a ratio of 1.25 or more score
+best at 0.70. A sparser test set would favour a stricter floor.
+
+**08:48** Submitted probe 2 (file `probe_e40_floor090.csv`): deployed model, floor 0.90
+(997 masks). Validation predicts 0.40; a sparser test set predicts 0.42 or more. No
+submissions left today.
