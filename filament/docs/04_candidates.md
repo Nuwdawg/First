@@ -40,15 +40,21 @@ photographs. F and G use three models of one family, one aggregation rule fixed 
 looking at combinations, and one tuned number (the floor), which sits on a flat part of
 its curve (0.4816 at 0.85, 0.4817 at 0.88 for F).
 
+## Selection-corrected gain
+
+Choosing the aggregator and the floor inside a nested 5-fold cross-validation (200
+repeats) gives the three-model family +0.0068 over the deployed model, against +0.011 to
++0.012 in-sample. The honest validation gain is about +0.007.
+
 ## Expectation
 
 The deployed model's unrounded public score is between 0.405 and 0.412. Three of its
 equal-validation variants (eight-view fusion exp144, weight soup, calibrated ensemble
 with YOLO) displayed 0.40, which suggests it sits in the lower part of that range. If
-the validation gain of F or G (+0.011) transferred fully, they would land at 0.416 to
-0.423 and display 0.42. The earlier vote-mask rules (exp162, exp169) transferred at most
-about two thirds of their gain. A realistic expectation is 0.412 to 0.420: better than
-even odds of staying at 0.41 on any single try, with a real chance of 0.42.
+the selection-corrected validation gain of F or G (+0.007) transferred fully, they would
+land at 0.412 to 0.419. The earlier vote-mask rules (exp162, exp169) transferred at most
+about two thirds of their gain. A realistic expectation is 0.410 to 0.418: more likely
+than not to stay at 0.41 on any single try, with a real chance of 0.42.
 
 Order planned: G, then F, then C, with the last two slots decided by what the first
 three show (including the team's position among the teams displaying 0.41, which moves

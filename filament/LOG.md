@@ -131,3 +131,34 @@ each window (the 08:49 pause had the same cause). Six hourly check-ins went unan
 
 **19:35** Progress email 2 sent, explaining the limit and the realistic email cadence.
 `STATE.md` added so work can resume from the repo alone.
+
+**19:31** Single-stage clustering of all 24 views (three models x eight): 0.4818 (mean),
+0.4792 (max x fraction), 0.4823 (mean of per-model max x fraction). Same plateau as the
+two-stage rule (`analysis/onestage.py`).
+
+**19:33** Native 1024-px tile views of e40: 0.446 as a score on their own; blending them
+into the eight-view score changes nothing (0.4772 / 0.4785). No GPU job for test tiles
+(`analysis/tiles.py`).
+
+**19:35** Value of knowing the annotator (`analysis/style_oracle.py`), in-sample upper
+bounds from choosing the confidence floor with the labels: per annotator batch 0.4877
+(single view) and 0.5033 (three-model consensus); per photograph 0.5037 / 0.5168; per
+record 0.5191 / 0.5346. Even perfect knowledge of each annotator's inclusion habit is
+worth about +0.02, and it cannot be known for a test photograph. An annotator-conditioned
+model was therefore not built.
+
+**19:35** Nested 5-fold cross-validation of the three-model rule family (aggregator and
+floor chosen on four fifths of the photographs, scored on the rest, 200 repeats):
++0.0068 over the deployed model (range +0.002 to +0.010 across repeats). The in-sample
+figure of +0.011 to +0.012 is therefore optimistic by about 0.004.
+
+**19:38** Variants built: G94 (three-model, max x fraction, floor 0.94; validation 0.4713,
+941 masks) and F85 (mean, floor 0.85; 0.4816, 1,173 masks). Agreement between candidate
+test files, as PQ of one scored against another (`analysis/diversity.py`): F vs G 0.954,
+F vs deployed 0.840, F vs the earlier seven-source submission 0.878, single-model
+candidates A, D, E against each other 0.865 to 0.898.
+
+**19:40** Checked whether the training file splits multi-piece filaments into separate
+instances (which would make the hidden test masks coarser than the training ones): it
+does not. All 8,199 annotation ids are unique, spines are unique within a record (3
+exceptions), and 99.8 % of spine points lie inside their own mask.
