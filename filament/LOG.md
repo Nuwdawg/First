@@ -58,3 +58,25 @@ best at 0.70. A sparser test set would favour a stricter floor.
 **08:48** Submitted probe 2 (file `probe_e40_floor090.csv`): deployed model, floor 0.90
 (997 masks). Validation predicts 0.40; a sparser test set predicts 0.42 or more. No
 submissions left today.
+
+**08:49 to 13:30** No work: the session's worker process was restarting. Four hourly
+check-ins went unanswered.
+
+**13:31** Probe 2 (58194117, floor 0.90) scored **0.40**, the value plain validation
+predicts (0.4625 minus the offset). The sparser-test-set idea gives no gain from the
+floor and is set aside.
+
+What the two probes establish for the deployed single-view model:
+
+| floor | validation PQ | public | implied offset |
+|---|---|---|---|
+| 0.70 | 0.4537 | 0.39 | 0.059 to 0.069 |
+| 0.85 | 0.4705 | 0.41 | 0.056 to 0.066 |
+| 0.90 | 0.4625 | 0.40 | 0.058 to 0.068 |
+
+All three are consistent with one offset between 0.059 and 0.066, so the deployed
+model's unrounded public score is about 0.4085 and a displayed 0.42 needs about +0.007.
+The earlier ensembles (validation 0.484 to 0.495, public 0.41) had offsets of at least
+0.074: no more than half of their validation gain was real.
+
+**13:35** Progress email 1 sent.
