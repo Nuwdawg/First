@@ -80,3 +80,26 @@ The earlier ensembles (validation 0.484 to 0.495, public 0.41) had offsets of at
 0.074: no more than half of their validation gain was real.
 
 **13:35** Progress email 1 sent.
+
+**13:38** Eight Mask2Former-family models with saved validation and test predictions
+loaded (`analysis/zoo.py`). Alone: e40 0.4705, ctrl7 0.4674, ctrl31 0.4673, head 0.4626,
+focal 0.4607, paste 0.4548 (base20 and qual31 use a different score scale).
+
+**13:40** Six-model consensus: 0.4701. No gain over the single deployed model.
+
+**13:42** Near-miss analysis: 199 annotated masks are touched but unmatched; the model's
+shape is the smaller one in 42 % and the larger one in 46 %.
+
+**13:43** Eight-view consensus of e40: 0.4771 (mean of 8) and 0.4797 (max x fraction).
+A 2560-pixel view and a second model add nothing.
+
+**13:46** Label-free comparison of validation and test photographs: no difference.
+The consensus gain is concentrated on multi-annotator photographs.
+
+**13:49** Leave-one-annotator-out ceiling: selecting candidates with the other
+annotators' masks scores 0.447 on the held-out annotator; the deployed rule scores
+0.4712 on the same records.
+
+**13:50** Consensus gain replicated on base20 (+0.019), qual31 (+0.005) and the Swin-S
+hold-out model (+0.009); shifted views add nothing. Summary in
+`docs/03_ceiling_and_consensus.md`.
