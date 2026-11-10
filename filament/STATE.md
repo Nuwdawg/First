@@ -1,0 +1,53 @@
+# Operational state (read this first when resuming)
+
+Last updated: 10 Nov 2026, 19:40 UTC.
+
+## Constraints that shape the work
+- The session hits the account's five-hour usage limit after about 37 minutes of work
+  (windows so far: 08:11-08:49, 13:30-14:07, 19:28-). The current window resets at
+  00:20 UTC on 11 Nov. Nothing runs and no email can be sent while limited. Background
+  processes do not survive a limit pause; files do.
+- Emails go to k.kasozi69@gmail.com: identify as Claude (model claude-fable-5-2, xhigh
+  reasoning), then flowing paragraphs. Send one at the start and one near the end of each
+  working window. Sent so far: 13:35 and 19:35 UTC on 10 Nov.
+- Five submissions per UTC day. 10 Nov is used up. Competition closes 15 Nov 06:00 UTC.
+- Kaggle GPU quota: 9.6 h left until 14 Nov 00:00 UTC, then 30 h. None used by this work.
+- Never download or use the public MAGFiLO annotations (they contain the test labels).
+- No subagents or extra sessions unless the user asks.
+
+## Where things are
+- Kaggle CLI: `export KAGGLE_USERNAME=cosmicwitness KAGGLE_KEY=placeholder` (the proxy
+  supplies the real credential). Competition id `filament-segmentation-2026`.
+- Working directory (not in git): `/home/user/work/` with `comp/data` (competition data),
+  `caches/` (model prediction caches from Kaggle notebook outputs), `an/` (scripts, same
+  as `filament/analysis/`, plus pickles under `an/zoo/`), `subs/` (submission files).
+- Candidate files in `/home/user/work/subs/`: `cand_A..G_*.csv` (see
+  `docs/04_candidates.md`). Rebuild with `python3 make_d4_sub.py <mean8|maxfrac> <floor>
+  <out>` or `python3 make_multi_sub.py e40,swins,swinb <mean8|maxfrac> <floor> <out>`
+  from `/home/user/work/an`; both replay validation before writing.
+- Leaderboard position: download
+  `https://www.kaggle.com/api/v1/competitions/filament-segmentation-2026/leaderboard/download`
+  into its own directory and read it with a script kept elsewhere. Team "supersede",
+  5th of 19 at 0.41 on 10 Nov; one team at 0.42.
+
+## What is established
+1. Leaderboard = per-annotator PQ (organisers' notebook). Public score of the deployed
+   single-view model = validation PQ minus 0.059..0.066. Pooled-annotator scoring and a
+   sparser test set were both tested by probe submissions and rejected (0.39, 0.40).
+2. Models are at a label-noise ceiling: annotators agree at PQ 0.34; selection using other
+   annotators' real masks (0.447) is worse than the model's own confidence (0.471);
+   six-model consensus 0.4701 = single model 0.4705.
+3. Eight-view (D4) consensus of one model gains 0.005..0.019 on all six models tested.
+   Three strongest models, eight views each: 0.4817 / 0.4824 on validation (twins),
+   +0.011 with bootstrap interval [+0.003, +0.021].
+4. Dead ends: 2560-px view, shifted views on top of D4, other models as extra views,
+   decoder-layer and mask-sharpness scores, mask threshold choice, painting policy,
+   learned rankers (no better than the simple rules).
+
+## Next actions
+1. After 00:20 UTC on 11 Nov: confirm no submission has been made that day, submit
+   `cand_G_three_maxfrac_092.csv`, read score and rank within the 0.41 group, then
+   `cand_F_three_mean8_088.csv`, then `cand_C_e40_d4_maxfrac_092.csv`; decide slots 4-5
+   from the results. Log each in `LOG.md`.
+2. If 0.42 appears: record it, tell the user, and note which file to select as final.
+3. If not: variants on the flat part of the floor curve (G at 0.94, F at 0.85), and D/E.

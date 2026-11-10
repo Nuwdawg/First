@@ -124,3 +124,10 @@ matter (`analysis/eiou.py`).
 
 **14:06** Candidates D, E, F, G built for the test set with all-data models in place of
 the twins; label-free twin check passed. See `docs/04_candidates.md`.
+
+**14:07 to 19:28** No work. Cause identified at 19:30 from the session's rate-limit
+record: the account's five-hour usage limit, reached after about 37 minutes of work in
+each window (the 08:49 pause had the same cause). Six hourly check-ins went unanswered.
+
+**19:35** Progress email 2 sent, explaining the limit and the realistic email cadence.
+`STATE.md` added so work can resume from the repo alone.
