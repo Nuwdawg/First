@@ -162,3 +162,13 @@ candidates A, D, E against each other 0.865 to 0.898.
 instances (which would make the hidden test masks coarser than the training ones): it
 does not. All 8,199 annotation ids are unique, spines are unique within a record (3
 exceptions), and 99.8 % of spine points lie inside their own mask.
+
+**19:44** Mask hygiene (`analysis/figs.py`, `analysis/components.py`). Annotated masks are
+single connected pieces (99.8 %); 14 % of deployed masks and 12 % of candidate G's have
+two or more pieces. The extra pieces are specks: median 2.3 % of the mask's area, median
+gap 8.6 px. Keeping only the largest piece (-0.0006 single view, -0.003 consensus),
+splitting pieces into separate filaments (-0.001 to +0.003 depending on thresholds) and
+bridging the gap (-0.002 to -0.006) do not help, so masks are left as they are.
+Figure `docs/figures/test_candidate_G_vs_deployed.png` shows candidate G against the
+deployed predictions on six test photographs; the masks follow the dark filament bodies
+and the two agree closely on the main filaments.
