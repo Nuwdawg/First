@@ -1,0 +1,28 @@
+configs: 288
+top 12 in-sample:
+  0.4832 (('e40', 'swins', 'swinb', 'ctrl31'), 0.5, 0.6, 'maxfrac', 0.9)
+  0.4827 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'maxfrac', 0.92)
+  0.4824 (('e40', 'swins', 'swinb'), 0.4, 0.5, 'maxfrac', 0.92)
+  0.4824 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'maxfrac', 0.92)
+  0.4823 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'maxfrac', 0.9)
+  0.4822 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'mean8', 0.88)
+  0.4822 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'maxfrac', 0.9)
+  0.4822 (('e40', 'swins', 'swinb', 'ctrl31'), 0.5, 0.6, 'maxfrac', 0.92)
+  0.4819 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'mean8', 0.85)
+  0.4819 (('e40', 'swins', 'swinb'), 0.4, 0.5, 'maxfrac', 0.9)
+  0.4817 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'mean8', 0.88)
+  0.4816 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'mean8', 0.85)
+nested 5-fold CV over the whole family (300 repeats): mean gain vs deployed +0.0047 (sd 0.0019, min -0.0008, max +0.0096)
+most often picked:
+  392 (('e40', 'swins', 'swinb', 'ctrl31'), 0.5, 0.6, 'maxfrac', 0.9)
+  164 (('e40', 'swins', 'swinb'), 0.4, 0.5, 'maxfrac', 0.92)
+  135 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'mean8', 0.88)
+  131 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'maxfrac', 0.9)
+  103 (('e40', 'swins', 'swinb'), 0.5, 0.6, 'maxfrac', 0.92)
+  85 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'maxfrac', 0.92)
+  85 (('e40', 'swins', 'swinb'), 0.4, 0.6, 'maxfrac', 0.9)
+  79 (('e40', 'swins', 'swinb', 'ctrl31'), 0.5, 0.6, 'maxfrac', 0.88)
+nested CV, three-model only                : +0.0050 (sd 0.0014); best in-sample 0.4827
+nested CV, three-model, link .5, vote .6   : +0.0069 (sd 0.0014); best in-sample 0.4824
+nested CV, e40 only                        : +0.0035 (sd 0.0024); best in-sample 0.4803
+nested CV, four-model only                 : +0.0085 (sd 0.0022); best in-sample 0.4832

@@ -12,8 +12,8 @@ def cache_to_pkl(path,out):
     for fn,v in d.items():
         V[fn.split('.')[0]]=[Cand(c['rle'],c['score'],{'src':'full' if mode=='full' else 'd4_%s'%c['view'],'view':int(c.get('view',0)) if mode=='d4' else 0}) for mode in ('full','d4') for c in v.get(mode,[])]
     pickle.dump(V,open(out,'wb'),protocol=4); return V
-VAL={'e40':lambda:load('e40','val'),'swins':lambda:pickle.load(open(Z+'/swinsL_val.pkl','rb')),'swinb':lambda:pickle.load(open(Z+'/swinbL_val.pkl','rb'))}
-TEST={'e40':lambda:load('e40','test'),
+VAL={'ctrl31':lambda:load('ctrl31','val'),'e40':lambda:load('e40','val'),'swins':lambda:pickle.load(open(Z+'/swinsL_val.pkl','rb')),'swinb':lambda:pickle.load(open(Z+'/swinbL_val.pkl','rb'))}
+TEST={'ctrl31':lambda:load('ctrl31','test'),'e40':lambda:load('e40','test'),
       'swins':lambda:cache_to_pkl('/home/user/work/caches/exp201s2/cache_swins/model_e050_test_cache.json',Z+'/swinsALL_test.pkl'),
       'swinb':lambda:cache_to_pkl('/home/user/work/caches/codex-swinb-paired-views/swinb_full_test/swinb_full_test_test_cache.json',Z+'/swinbALL_test.pkl')}
 models=sys.argv[1].split(','); agg=sys.argv[2]; floor=float(sys.argv[3]); out=sys.argv[4]

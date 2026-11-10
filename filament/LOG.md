@@ -172,3 +172,32 @@ bridging the gap (-0.002 to -0.006) do not help, so masks are left as they are.
 Figure `docs/figures/test_candidate_G_vs_deployed.png` shows candidate G against the
 deployed predictions on six test photographs; the masks follow the dark filament bodies
 and the two agree closely on the main filaments.
+
+**19:46** Sensitivity checks on the three-model consensus (validation 0.4824).
+One-pixel erosion costs 0.038 and one-pixel dilation 0.030 (`analysis/thick.py`), so
+mask thickness is tuned to the training annotators to well under a pixel. A rigid shift
+of all masks costs 0.008 (up), 0.027 (down), 0.013 (right), 0.022 (left), 0.07 to 0.09
+for two pixels (`analysis/shift_sens.py`).
+
+**19:48** The up/down asymmetry is the same in all three single-view models (-0.006 up,
+-0.028 down), so predictions sit about a third of a pixel below the rasterised
+annotations. A fractional correction applied inside the vote raises SQ from 0.6894 to
+0.6909 but PQ by only +0.0004; the opposite shift costs 0.0025
+(`analysis/subpixel.py`). Real but too small to matter; not adopted.
+
+**19:56** Where the consensus gain comes from (`docs/05_gain_breakdown.txt`): positive at
+five of six stations (+0.010 to +0.028; Udaipur -0.006 to 0.000), positive in 2011-2016
+and negative in 2017-2022 (36 records, -0.011 to -0.025), larger on photographs with two
+or three annotators (+0.010 to +0.018) than with one (+0.005), and absent on photographs
+with four or fewer filaments. On resampled validation sets candidates F and G beat the
+deployed model 99 % of the time and each other about half the time.
+
+**19:59** Nested cross-validation over a broader family of 288 configurations (model
+subsets, link threshold, vote threshold, aggregator, floor; `docs/06_family_nested_cv.txt`):
+whole family +0.0047 over the deployed model; three models with fixed link and vote
++0.0069; e40 alone +0.0035; four models (adding ctrl31) +0.0085. The honest validation
+gain of the consensus is +0.005 to +0.008, and the settings do not matter within the
+plateau.
+
+**20:01** Candidate H built: four models (e40, all-data Swin-S, all-data Swin-B, ctrl31),
+max x fraction, floor 0.90.
