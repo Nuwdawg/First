@@ -58,8 +58,9 @@ fraction, so a single model's interval still includes zero.
 
 The gain is larger on photographs with several annotators: for e40, 0.4712 to 0.4793
 (mean) and to 0.4862 (max x fraction, floor 0.92) on those 47 photographs, against
-0.4693 to 0.4731 on single-annotator photographs (`analysis/bysubset.py`). The test set
-has at least 2.0 annotator records per photograph against 1.7 in validation.
+0.4693 to 0.4731 on single-annotator photographs (`analysis/bysubset.py`). How many
+annotators the test photographs have is not known: the published totals only bound it
+at no more than 2.04 records per photograph, against 1.70 in validation.
 
 Adding three shifted views to the eight (Swin-S hold-out model, the only one with
 shifted views saved) changes nothing: 0.4766 to 0.4741 (mean), 0.4775 to 0.4788

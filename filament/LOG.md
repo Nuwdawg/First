@@ -103,3 +103,24 @@ annotators' masks scores 0.447 on the held-out annotator; the deployed rule scor
 **13:50** Consensus gain replicated on base20 (+0.019), qual31 (+0.005) and the Swin-S
 hold-out model (+0.009); shifted views add nothing. Summary in
 `docs/03_ceiling_and_consensus.md`.
+
+**13:54** Candidates A, B, C built from e40's eight views; validation replays 0.4771,
+0.4797, 0.4787. Cross-fitted learned rankers of the eight-view clusters score 0.4732 to
+0.4813 (`analysis/learned_rank.py`), no clearer than the hand rules, so the rules stay.
+
+**13:57** Swin-B hold-out model: single view 0.4711, eight-view consensus 0.4758 / 0.4767.
+Sixth model on which the consensus gain appears.
+
+**13:58** Three-model consensus (e40 with the Swin-S and Swin-B hold-out twins, eight
+views each): 0.4817 (mean) and 0.4824 (max x fraction), +0.011 to +0.012 over the
+deployed model, bootstrap interval [+0.003, +0.021] (`analysis/three.py`).
+
+**14:01** Painting policy for partly covered candidates: no effect (+0.0002 to +0.002).
+
+**14:04** Per-instance mask threshold chosen by approximate expected IoU (Nowozin 2014),
+using the cached masks at logits -1, 0 and +1: always selects the logit-0 mask; the
+oracle best-of-three gains 0.008 IoU. The masks are too sharp for the threshold to
+matter (`analysis/eiou.py`).
+
+**14:06** Candidates D, E, F, G built for the test set with all-data models in place of
+the twins; label-free twin check passed. See `docs/04_candidates.md`.

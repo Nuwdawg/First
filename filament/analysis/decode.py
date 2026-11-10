@@ -22,3 +22,18 @@ def write_submission(canvases,path):
             for i,r in enumerate(canvas_to_rles(cv,n)):
                 w.writerow([f'{ph}_{i+1}',r['counts'].decode()]); rows+=1
     return rows
+
+def multi_objects(per_model_cands,agg='mean8',vote=0.6,link=0.5):
+    """Two-stage consensus: eight-view objects per model, then clustered across models.
+    Score = mean over models of the per-model score (a model without the object counts zero)."""
+    pool=[]
+    for name,cands in per_model_cands.items():
+        for o in d4_objects(cands,vote,link):
+            o.score=o.meta[agg]; o.meta['src']=name; pool.append(o)
+    n=len(per_model_cands)
+    objs=[consensus(k,n,'vote',0.5) for k in cluster(pool,link=link,min_score=0.01)]
+    for o in objs: o.score=o.meta['sum']/n
+    return objs
+def rule_multi(per_model_cands,agg='mean8',floor=0.88,min_area=100):
+    objs=multi_objects(per_model_cands,agg)
+    return paint_labels(objs,floor,min_area=min_area)
