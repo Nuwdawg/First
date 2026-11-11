@@ -237,3 +237,22 @@ in position since before 9 November.
 **00:59** `blend11_thr50` (58219979, the eight files plus candidates A, D, E; at least 6
 of 11; 1,120 masks) scored **0.41** with no further change in position. No submissions
 left on 11 November.
+
+**01:03** File-level vote emulated on validation with fourteen rebuilt pipelines
+(`analysis/blend_val.py`). Eight mixed files: 0.4778 (at least 2 agree), 0.4810 (4),
+0.4784 (6), 0.4734 (7), against a best member of 0.4817. Six single-view files: 0.4754
+at 4 of 6 against a best member of 0.4711. All fourteen: 0.479 to 0.482 from 3 to 8
+agreeing. The vote sits on the same plateau as the eight-view consensus, and the number
+of files required barely matters between a quarter and 60 %.
+
+**01:13** Files prepared for 12 November (`analysis/blendw.py`): `blendW_thr50` and
+`blendW_thr40` (22 distinct files weighted 1.0 / 0.6 / 0.3 by the public score they
+displayed: 0.41 / 0.40 / 0.39; weighted share at least 50 % or 40 %; 1,138 and 1,179
+masks) and `blend8_thr38` (the eight 0.41 files, at least 3 of 8; 1,197 masks). The
+weighted code path reproduces `blend41_thr50` exactly. All these files agree with
+`blend41_thr50` at 0.974 to 0.983, so they are small steps around the current best.
+
+Six ideas have now been checked against leaderboard evidence and rejected: pooled
+annotators (probe 0.39), sparser test annotations (probe 0.40), ground truth filtered by
+class and by size (both contradict the floor-0.90 probe), a stricter match threshold and
+transfer of the eight-view consensus (G 0.40, F 0.41).
