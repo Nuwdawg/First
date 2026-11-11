@@ -201,3 +201,39 @@ plateau.
 
 **20:01** Candidate H built: four models (e40, all-data Swin-S, all-data Swin-B, ctrl31),
 max x fraction, floor 0.90.
+
+**21:13** Simulated filtered ground truths on validation (`analysis/gt_subset.py`): keeping
+only Left/Right filaments or only large ones moves the best confidence floor to 0.93,
+which the floor-0.90 probe contradicts. A stricter match threshold of about 0.59 to 0.60
+reproduces the three probe scores exactly (`analysis/tau.py`) and predicted 0.42 for the
+consensus candidates (`analysis/tau_cands.py`).
+
+**21:16 to 00:29** No work: usage limit.
+
+## 11 November 2026
+
+**00:29** Submitted G (58219268, three models, max x fraction >= 0.92) and F (58219271,
+three models, mean >= 0.88).
+
+**00:36** G scored **0.40**, F scored **0.41**; the team stayed 5th among the teams at
+0.41. The eight-view consensus does not transfer: a validation gain of +0.007
+(cross-validated) produced nothing visible in public. The stricter-match-threshold idea
+is rejected with it (it predicted 0.42 for both).
+
+**00:42** Consensus of earlier submissions (`analysis/blend41.py`, `analysis/blend.py`).
+Fifteen files that each displayed 0.41 were downloaded; files agreeing above 0.97 with a
+newer one were dropped, leaving eight distinct ones (F, transport-mean 58186186,
+seven-view 58160222, ten-source 58159470, multimodel-exact 58127006 for the exp169
+family, m2f-only 57816701, exp162b 56648050, deployed 56309562). Masks are clustered
+across files at IoU 0.5; an object is kept if enough files contain it, with a
+pixel-majority mask.
+
+**00:50** `blend41_thr50` (58219681, at least 4 of 8 files, 1,156 masks) and
+`blend41_thr60` (58219683, at least 5 of 8, 1,110 masks) both scored **0.41**, and the
+team moved from 5th to **3rd** of the twenty teams at 0.41, passing two teams. One of
+the two files is therefore a new best on the unrounded score. This is the first change
+in position since before 9 November.
+
+**00:59** `blend11_thr50` (58219979, the eight files plus candidates A, D, E; at least 6
+of 11; 1,120 masks) scored **0.41** with no further change in position. No submissions
+left on 11 November.

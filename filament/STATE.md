@@ -1,6 +1,6 @@
 # Operational state (read this first when resuming)
 
-Last updated: 10 Nov 2026, 19:40 UTC.
+Last updated: 11 Nov 2026, 01:00 UTC.
 
 ## Constraints that shape the work
 - The session hits the account's five-hour usage limit after about 37 minutes of work
@@ -44,7 +44,14 @@ Last updated: 10 Nov 2026, 19:40 UTC.
    decoder-layer and mask-sharpness scores, mask threshold choice, painting policy,
    learned rankers (no better than the simple rules).
 
-## Next actions
+## Leaderboard results on 11 Nov
+G 0.40, F 0.41 (no change in position), blend41_thr50 0.41 and blend41_thr60 0.41 (team
+moved 5th -> 3rd of 20 at 0.41), blend11_thr50 0.41 (no change). The eight-view consensus
+alone does not transfer; a majority-vote consensus of distinct 0.41 submissions does
+improve the unrounded score. Usage windows are about 45 calls each; the limit pauses the
+session for the rest of each five-hour window.
+
+## Next actions (superseded by the section above where they conflict)
 1. After 00:20 UTC on 11 Nov: confirm no submission has been made that day, submit
    `cand_G_three_maxfrac_092.csv`, read score and rank within the 0.41 group, then
    `cand_F_three_mean8_088.csv`, then `cand_C_e40_d4_maxfrac_092.csv`; decide slots 4-5
