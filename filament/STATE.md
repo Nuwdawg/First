@@ -14,30 +14,26 @@ Last updated: 12 Nov 2026, 15:30 UTC.
 - Never download or use the public MAGFiLO annotations (they contain the test labels).
 - No subagents or extra sessions unless the user asks.
 
-## Current position (12 Nov 15:30 UTC)
-0.41, 4th of 25 teams at 0.41 (rank 139); one team at 0.42. Submissions on 12 Nov:
-`blendW_thr50` 0.41, `blend41_thr50_thick40` 0.41 (neither moved the position); 3 left.
-Best file: `blend41_thr50.csv` or `blend41_thr60.csv` (submitted together on 11 Nov).
+## Current position (12 Nov 19:45 UTC)
+0.41, 4th of 25 teams at 0.41 (overall 138); one team at 0.42. All five submissions of
+12 Nov are used (blendW_thr50 0.41, blend41_thr50_thick40 0.41, blend41_thr60_thick40
+0.41, cand_C 0.40, blend8_thr38 0.41); none moved the position. Best file:
+`blend41_thr50.csv` or `blend41_thr60.csv`. Fifteen submissions remain (13, 14 and
+15 Nov before 06:00 UTC). Kaggle GPU: about 7.1 h until 14 Nov 00:00 UTC, then 30 h.
 
-## The lead being followed
-The test set is triple-annotated photographs labelled by groups 0101/0102/0104/0501
-(`docs/06_test_population.md`). Kernel `cosmicwitness/sol-exp202-target-ft-t4` fine-tunes
-the deployed model on those groups' training records (pushed 15:24 UTC, about 2.6 h).
-When it finishes:
-1. `kaggle kernels status cosmicwitness/sol-exp202-target-ft-t4`, then
-   `kaggle kernels output cosmicwitness/sol-exp202-target-ft-t4 -p /home/user/work/caches/exp202`.
-   Outputs: `ftA/`, `ftB/` (events.log, `e00N_cache.json` single-view validation
-   candidates as {photo: [{score, rle}]}, `model_e00N.pt`), `selection.json`,
-   `d4_best/{val,test}_cache.json` (zoo format, full + d4), `test_ft?_e00N/test_cache.json`.
-2. Score every epoch by population with the pattern of `analysis/bygroup.py`; the bar is
-   the deployed model: 0.4570 on target records, 0.4539 on triple-annotated photographs,
-   0.4705 on all (single view, floor 0.85).
-3. If a checkpoint clears the bar by about 0.01 or more: build its single-view test file
-   (floor chosen on target records) and its eight-view consensus, submit, and consider a
-   second kernel (all 623 target records including validation, or a three-model consensus
-   with the fine-tuned model in place of e40).
-4. If not: the remaining slots go to vote variants in `/home/user/work/subs/`
-   (`blend8_thr38.csv`, `blend41_thr60_thick40.csv`, `blendW_thr40.csv`).
+## What is settled (see LOG.md, docs/06_test_population.md)
+The test set is triple-annotated; the ceiling with the labels in hand is about 0.59; the
+fine-tune on the test-side annotators (exp202, outputs in `/home/user/work/caches/exp202`)
+gave no gain. No systematic lever is left untested. The user was asked by email (19:45
+UTC) whether to use a junk-mask leaderboard comparator; do not use it without their yes.
+
+## Next actions
+1. From 00:00 UTC on 13 Nov: five files that are as strong as the best but differ from it
+   in different directions, one at a time with a position check. Candidates:
+   `cand_A_e40_d4_mean8_085.csv`, `cand_F85_three_mean8_085.csv`, a vote that adds the
+   fine-tuned model's files as members, the deployed selection with three-model masks,
+   a vote of single-view models. Build with `analysis/ft_make_sub.py`, `blendw.py`.
+2. Email hourly while the session runs; log every submission.
 
 ## Where things are
 - Kaggle CLI: `export KAGGLE_USERNAME=cosmicwitness KAGGLE_KEY=placeholder` (the proxy

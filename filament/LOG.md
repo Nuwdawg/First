@@ -325,3 +325,53 @@ target validation records, eight-view candidates cached for the best checkpoint 
 single-view test candidates for the rest. The group filter, the checkpoint-aware cache
 builder and the selector were smoke-tested locally on CPU; the selector reproduces
 0.47052 / 0.45702 / 0.45392 (all / target / triple) for the deployed model.
+
+**15:27** `blend41_thr60_thick40` (58277308) scored **0.41**, no change in position. With
+the 15:00 result this bounds the public value of the thickening below the gap to the next
+team on whichever of the two vote files is our best. Dropped.
+
+**15:33** `cand_C_e40_d4_maxfrac_092` (58277481), the eight-view consensus of the
+deployed model alone, scored **0.40**: below the single view (0.41) although it is better
+on validation by 0.008 (all), 0.014 (target records) and 0.016 (triple-annotated). The
+test-side eight-view caches are sound (`analysis/viewcheck.py`: each rotated or flipped
+view finds 99.9 % of the confident single-view masks at median IoU 0.914 on test, 0.913
+on validation, with the same sub-pixel offsets). The public half is 90 photographs;
+a difference of half a point between two rules is within its sampling noise.
+
+**15:40** Minimum area is not a lever on any population (`analysis/minarea_pop.py`).
+
+**15:42** Label-fusion ceiling on the 151 triple-annotated training photographs, labels
+only (`analysis/fuse_oracle.py`). Copying one annotator: PQ 0.554 to 0.556. Keeping the
+filaments at least two of three drew, with a fused mask: 0.585 to 0.587 (majority pixels
+or the smaller medoid; union 0.559, intersection 0.538). Adding the masks only one
+annotator drew: 0.47 to 0.50. Only the filaments all three drew: 0.428. Of 3,006 masks,
+35.5 % were drawn by one annotator only, 28.1 % by two and 36.3 % by all three.
+
+**15:42 to 19:28** No work: usage limit. The kernel kept running.
+
+**19:30** exp202 results (`docs/07_exp202_results.txt`, kernel time 2.5 h). Fine-tuning on
+the target groups' records does not help. Single view, best floor, target validation
+records: 0.4511 / 0.4533 / 0.4538 (learning rate 2e-5, epochs 2 / 4 / 6) and 0.4525 /
+0.4545 / 0.4513 (5e-5), against 0.4570 for the deployed model; on all validation records
+0.460 to 0.463 against 0.4705. Eight views of the selected checkpoint (5e-5, epoch 4):
+0.4650 to 0.4657 on target records against 0.4675 to 0.4735 for the deployed model;
+three-model consensus with it: 0.4780 against 0.4771. The disagreement with the target
+annotators is disagreement among the three annotators of a photograph, not a style the
+model failed to learn.
+
+**19:33** Changing only the mask source inside the file vote changes nothing on target
+records (`analysis/maskswap.py`: three-model masks -0.0006, eight-view -0.002,
+single-view -0.005). The deployed selection with three-model masks is +0.0047 on target
+records and +0.006 overall.
+
+**19:40** `blend8_thr38` (58283396, at least 3 of 8 files, 1,197 masks) scored **0.41**,
+no change in position. Five submissions used on 12 November: 0.41, 0.41, 0.41, 0.40,
+0.41. Position: 4th of 25 at 0.41 (overall 138); one team at 0.42.
+
+**Standing on the evening of 12 November.** Tested and without visible public gain:
+consensus across views and models (two of three variants below the single view),
+weighting the vote by public score, more or fewer agreeing files, thicker masks, mask
+source, minimum area, larger candidates, lower mask thresholds, other existing models,
+fine-tuning on the test-side annotators. A leaderboard comparator built from deliberately
+wrong masks would resolve changes of a few ten-thousandths; it has not been used because
+it is leaderboard probing, and the user has been asked whether they want it.

@@ -51,7 +51,28 @@ score a test photograph and who draw thinner, shorter and more numerous filament
 - Swapping pieces for larger candidates, lower mask thresholds, a different existing
   model: no gain on validation.
 - Fine-tuning the deployed weights on the target groups' records only (exp202, Kaggle
-  GPU): running; results in `LOG.md`.
+  GPU, 2.5 h): no gain. Best checkpoint 0.4545 on target validation records against
+  0.4570 for the deployed model; 0.462 against 0.4705 overall
+  (`docs/07_exp202_results.txt`).
+
+## Why the fine-tune changed nothing: the ceiling for three annotators
+
+With the three records of a photograph in hand, what single prediction scores best?
+(`analysis/fuse_oracle.py`, 151 photographs, labels only.)
+
+| prediction | PQ |
+|---|---|
+| copy one annotator | 0.554 to 0.556 |
+| filaments at least two of three drew, fused mask | 0.585 to 0.587 |
+| the same plus the masks only one annotator drew | 0.47 to 0.50 |
+| only the filaments all three drew | 0.428 |
+
+35.5 % of the masks on these photographs were drawn by one annotator only; each such mask
+is right once and wrong twice. A model that sees only the image scores 0.41 to 0.45
+against a labels-in-hand ceiling of about 0.59. The "pieces" in the table above are
+mostly the three annotators of one photograph choosing different extents, which is why
+training on their labels alone moved nothing, and why the honest part of the leaderboard
+is packed between 0.39 and 0.42.
 
 ## Caveats
 
