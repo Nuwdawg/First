@@ -28,12 +28,17 @@ gave no gain. No systematic lever is left untested. The user was asked by email 
 UTC) whether to use a junk-mask leaderboard comparator; do not use it without their yes.
 
 ## Next actions
-1. From 00:00 UTC on 13 Nov: five files that are as strong as the best but differ from it
-   in different directions, one at a time with a position check. Candidates:
-   `cand_A_e40_d4_mean8_085.csv`, `cand_F85_three_mean8_085.csv`, a vote that adds the
-   fine-tuned model's files as members, the deployed selection with three-model masks,
-   a vote of single-view models. Build with `analysis/ft_make_sub.py`, `blendw.py`.
-2. Email hourly while the session runs; log every submission.
+1. From 00:00 UTC on 13 Nov, submit one at a time from `/home/user/work/subs/` with a
+   position check after each (see `docs/08_candidate_pool.txt` for validation scores and
+   mutual agreement): `voteS9_k4.csv`, `pool13/five85.csv`,
+   `deployed_sel_three_masks.csv`, `pool13/d4_swinb.csv`, `pool13/S6noe40_k3.csv`.
+   If one passes a team, stay in its family for the next slot; avoid the max-times-fraction
+   consensus rule (two of two below 0.405).
+2. 14 and 15 Nov (ten more slots): other families from the pool that are least like the
+   files already submitted (`pool13/V5d4_k3.csv`, `pool13/d4_ftB4.csv`,
+   `pool13/d4_swins.csv`, `pool13/swinsswinb85.csv`, `blend16_thr50.csv`, ...).
+3. Email hourly while the session runs; log every submission in LOG.md.
+4. The junk-mask comparator stays unused unless the user says yes (asked by email 19:45).
 
 ## Where things are
 - Kaggle CLI: `export KAGGLE_USERNAME=cosmicwitness KAGGLE_KEY=placeholder` (the proxy

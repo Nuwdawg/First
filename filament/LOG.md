@@ -375,3 +375,21 @@ source, minimum area, larger candidates, lower mask thresholds, other existing m
 fine-tuning on the test-side annotators. A leaderboard comparator built from deliberately
 wrong masks would resolve changes of a few ten-thousandths; it has not been used because
 it is leaderboard probing, and the user has been asked whether they want it.
+
+**20:15 to 20:50** Candidate pool for the remaining fifteen submissions
+(`docs/08_candidate_pool.txt`, `analysis/tickets13.py`, `pool13.py`, `members13.py`).
+Files that agree with the best one at about 0.90 have scored on both sides of 0.405
+(G and C at 0.40; F and the single view at 0.41), so on 90 public photographs two sound
+files that differ in 150 masks scatter by about 0.004. Near-copies of the best file
+cannot reach 0.415; a comparably good file built differently can. About 25 rules were
+replayed on validation with the code that writes the test file: votes of single-view
+models (nine models including the two fine-tuned ones), eight-view consensus per model,
+votes of eight-view files, mean-score consensus across two to five models, and the
+deployed selection with consensus masks. All score 0.459 to 0.471 on triple-annotated
+validation photographs (deployed 0.454, vote replay 0.468). Agreement with the best test
+file ranges from 0.87 to 0.95.
+
+Planned for 13 November, one at a time with a position check: `voteS9_k4.csv` (nine
+single-view models, at least 4), `pool13/five85.csv` (five-model mean-score consensus,
+floor 0.85), `deployed_sel_three_masks.csv`, `pool13/d4_swinb.csv`,
+`pool13/S6noe40_k3.csv`; the last two may change with the first results.
