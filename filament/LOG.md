@@ -393,3 +393,29 @@ Planned for 13 November, one at a time with a position check: `voteS9_k4.csv` (n
 single-view models, at least 4), `pool13/five85.csv` (five-model mean-score consensus,
 floor 0.85), `deployed_sel_three_masks.csv`, `pool13/d4_swinb.csv`,
 `pool13/S6noe40_k3.csv`; the last two may change with the first results.
+
+**20:54** Kernel `cosmicwitness/sol-exp203-fused-ft-t4` pushed (`exp203_fused_ft/`):
+the deployed weights fine-tuned on fused consensus labels. For each of the 238
+multi-annotated training photographs with any agreement, one target record made of the
+filaments at least two annotators drew (1,126 masks; 1,629 masks drawn by one annotator
+only are dropped), each represented by a real annotator mask. Run C: the fused records
+only, 12 epochs; run D: the 352 single-annotated records plus the fused records three
+times, 3 epochs; learning rate 5e-5. Smoke-tested locally.
+
+**20:55** Ranking headroom on the 27 triple-annotated validation photographs
+(`analysis/rank_headroom.py`). Of the deployed model's objects above the floor, 73 % are
+matched by at least two annotators, 12.7 % by one and 14.5 % by none; the confidence
+separates "at least two" from the rest with AUC 0.93. A perfect selection among the
+model's own masks would score 0.501 against 0.454 (three-model consensus: 0.518 against
+0.472). A label-free comparison of what the eight-view consensus drops and adds shows the
+same pattern on validation and test (`analysis/dropcheck.py`).
+
+**21:00** **Correction: the test set is not all triple-annotated.** The bound recorded on
+10 November (08:45) had dropped out of view: the published totals leave at most 368
+annotator records for the 180 test photographs, 2.04 per photograph, where triples would
+need 540; and 0.5556 would be displayed as 0.56, not 0.55. `docs/06_test_population.md`
+now opens with the withdrawal. Consequences: the whole validation set is the yardstick
+again (the candidate pool was already scored on it: `docs/08_candidate_pool.txt`, first
+column); the fine-tune on four annotator groups was aimed at a population the test set is
+not restricted to (it gave no gain on that population either); the thickening had no
+basis on the test set, which agrees with its null result in public.

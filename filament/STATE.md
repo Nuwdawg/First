@@ -22,7 +22,9 @@ Last updated: 12 Nov 2026, 15:30 UTC.
 15 Nov before 06:00 UTC). Kaggle GPU: about 7.1 h until 14 Nov 00:00 UTC, then 30 h.
 
 ## What is settled (see LOG.md, docs/06_test_population.md)
-The test set is triple-annotated; the ceiling with the labels in hand is about 0.59; the
+CORRECTION (12 Nov 21:00): the test set is NOT all triple-annotated; published totals
+bound it at 2.04 records per photograph, so it is a mix like validation and the whole
+validation set is the yardstick. For multi-annotated photographs the ceiling with the labels in hand is about 0.59; the
 fine-tune on the test-side annotators (exp202, outputs in `/home/user/work/caches/exp202`)
 gave no gain. No systematic lever is left untested. The user was asked by email (19:45
 UTC) whether to use a junk-mask leaderboard comparator; do not use it without their yes.

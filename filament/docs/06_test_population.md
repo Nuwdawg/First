@@ -1,5 +1,22 @@
 # Who labels the test set (12 November 2026)
 
+> **Correction, 12 November 21:00 UTC. The conclusion of this page is withdrawn.**
+> The inference below (every test photograph has three annotator records) contradicts a
+> bound already recorded on 10 November (`LOG.md`, 08:45): the published dataset has
+> 10,244 filaments in 1,593 annotator records of 958 photographs, the training file has
+> 8,199 filaments in 1,154 records of 707 photographs, so the 251 photographs outside the
+> training file hold at most 439 records, and the 180 test photographs at most 368, that
+> is **at most 2.04 records per photograph**. A test set of triples would need 540. The
+> match with the 0.55 cluster is also weaker than stated: 0.5556 would be displayed as
+> 0.56, where only six teams sit. The test set is therefore a mix of one, two and three
+> records per photograph much like validation (1.70), and the whole validation set, not
+> its triple-annotated part, is the relevant yardstick. What remains valid on this page:
+> the description of the annotator groups in the training data, the label-fusion ceiling
+> for multi-annotated photographs, and the negative results (thickening, larger
+> candidates, fine-tuning on the four groups). What does not: any claim that the test
+> set is scored by those four groups, and the reading of the validation gap as a
+> composition effect.
+
 ## The observation
 
 108 teams sit at exactly 0.55 on the public leaderboard. They use the publicly available
