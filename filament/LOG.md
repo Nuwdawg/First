@@ -256,3 +256,72 @@ Six ideas have now been checked against leaderboard evidence and rejected: poole
 annotators (probe 0.39), sparser test annotations (probe 0.40), ground truth filtered by
 class and by size (both contradict the floor-0.90 probe), a stricter match threshold and
 transfer of the eight-view consensus (G 0.40, F 0.41).
+
+**01:24 to 01:48** (not logged at the time) Vote variants built for the next day
+(`analysis/blend_variants.py`). A confidence tiebreaker inside the file vote does not help
+on validation (-0.002 to -0.0035 for eight mixed files, +/-0.003 for six single-view
+files; `analysis/vote_conf.py`). Carrying the three-model consensus masks instead of the
+file-majority masks gives +0.0015 [-0.0016, +0.0046] and +0.0023 [-0.0002, +0.0053]
+(`analysis/vote_masks.py`): inconclusive.
+
+**01:48 on 11 Nov to 14:29 on 12 Nov** No work: the session was stopped by the account's
+usage limit and then by worker restarts. All of 11 November's remaining hours were lost.
+
+## 12 November 2026
+
+**14:29** `blendW_thr50` (58275876) scored **0.41**, no change in position. The team is
+now 4th of 25 at 0.41 because a new team (Guillaume) entered just above it that morning.
+Weighting the vote by each file's public score does not beat the plain vote of the eight
+0.41 files.
+
+**14:40** Seventh hypothesis rejected (`analysis/calib.py`): the consensus was tuned on
+hold-out models but run on test with all-data models, so its floor might be miscalibrated
+there. It is not: objects per photograph above each floor are 4 to 7 % lower on test than
+on validation for every rule, single view and consensus alike.
+
+**14:45** Geometric mismatch simulated on validation (`analysis/geom.py`): a rigid shift
+of one pixel costs 0.006 to 0.028 and two pixels 0.05 to 0.09; a one-pixel dilation 0.030
+and erosion 0.032. A mismatch of that kind in the hidden masks would look like the gap
+everybody reports, but it is not supported: the organisers rasterise with pycocotools as
+we do, and in September a one-pixel erosion of YOLO masks gained the same +0.03 in public
+as on validation. Not probed.
+
+**14:52** **The test set is triple-annotated** (`analysis/composition.py`). Copying one
+annotator's record and scoring it with the official rule gives PQ 0.6798 on training
+photographs with two annotator records and **0.5556** on photographs with three; 108
+leaderboard teams (all using the public annotations) sit at exactly 0.55. Per-record
+scoring with three records per photograph explains that cluster; a random mix of one,
+two and three records would put a copied record near 0.8. See `docs/06_test_population.md`.
+
+**14:55** Consequences measured on validation (`analysis/bysub3.py`, `bygroup.py`,
+`groupstyle.py`). Triple-annotated photographs occur only in annotator groups 0101, 0102,
+0104 and 0501 ("target" below; 623 of the 1,154 records). The deployed model scores 0.454
+on the 27 triple-annotated validation photographs against 0.4705 overall. From the labels
+alone, triple-annotated records have fewer filaments (6.64 against 7.80 per record),
+larger ones (median 1,361 px against 1,087) and wider ones (mean width 10.3 px against
+9.3). For target records a one-pixel erosion of our masks costs 0.049 and a dilation
+0.020; for the other groups it is 0.016 and 0.041.
+
+**15:00** Sub-pixel thickening (blur sigma 1 px, threshold 0.40, +3.5 % area;
+`analysis/subthick.py`, `blend_thick_val.py`): on target validation records +0.0026
+(three-model consensus), +0.0022 (file vote), -0.001 (single view); on triple-annotated
+photographs +0.0047, +0.0034, 0.000. `blend41_thr50_thick40` (58276674,
+`analysis/thicken_sub.py`) scored **0.41** with no change in position.
+
+**15:07** Where the target annotators differ most (`analysis/splitmerge.py`): our mask is
+only a piece of the annotated filament for 9.1 % of their masks (4.8 % for the others),
+and 12.3 % of our predictions are such pieces and count as false positives (6.3 %).
+Swapping a piece for the model's own larger low-confidence candidate makes things worse
+on every population (`analysis/larger.py`); masks at a lower probability threshold change
+nothing (`analysis/lowmask.py`); none of the eight cached models suits the target
+annotators better than the deployed one (`analysis/model_by_pop.py`, 0.44 to 0.47).
+The style has to be learned in training.
+
+**15:24** Kaggle kernel `cosmicwitness/sol-exp202-target-ft-t4` pushed
+(`exp202_target_ft/`): the deployed weights (exp139 epoch 40) fine-tuned on the 527
+training records of the four target groups, two runs in parallel (learning rate 2e-5 and
+5e-5, six epochs, cosine, evaluation every second epoch), checkpoints ranked on the 96
+target validation records, eight-view candidates cached for the best checkpoint and
+single-view test candidates for the rest. The group filter, the checkpoint-aware cache
+builder and the selector were smoke-tested locally on CPU; the selector reproduces
+0.47052 / 0.45702 / 0.45392 (all / target / triple) for the deployed model.

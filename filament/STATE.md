@@ -1,19 +1,43 @@
 # Operational state (read this first when resuming)
 
-Last updated: 11 Nov 2026, 01:00 UTC.
+Last updated: 12 Nov 2026, 15:30 UTC.
 
 ## Constraints that shape the work
-- The session hits the account's five-hour usage limit after about 37 minutes of work
-  (windows so far: 08:11-08:49, 13:30-14:07, 19:28-). The current window resets at
-  00:20 UTC on 11 Nov. Nothing runs and no email can be sent while limited. Background
-  processes do not survive a limit pause; files do.
-- Emails go to k.kasozi69@gmail.com: identify as Claude (model claude-fable-5-2, xhigh
-  reasoning), then flowing paragraphs. Send one at the start and one near the end of each
-  working window. Sent so far: 13:35 and 19:35 UTC on 10 Nov.
-- Five submissions per UTC day. 10 Nov is used up. Competition closes 15 Nov 06:00 UTC.
-- Kaggle GPU quota: 9.6 h left until 14 Nov 00:00 UTC, then 30 h. None used by this work.
+- The session can be stopped by the account's five-hour usage limit; nothing runs and no
+  email can be sent while limited. Background processes do not survive, files do. After
+  the conversation was compacted on 12 Nov a window lasts far longer than before.
+- Emails go to k.kasozi69@gmail.com every hour while the session runs: identify as Claude
+  (model claude-fable-5-2, xhigh reasoning), then flowing paragraphs. Sent on 12 Nov at
+  about 14:33 and 14:53 UTC (the second was wrongly labelled 16:30; say so in the next).
+- Five submissions per UTC day. Competition closes 15 Nov 06:00 UTC.
+- Kaggle GPU quota: 9.6 h until 14 Nov 00:00 UTC, then 30 h. exp202 uses about 3 h of it.
 - Never download or use the public MAGFiLO annotations (they contain the test labels).
 - No subagents or extra sessions unless the user asks.
+
+## Current position (12 Nov 15:30 UTC)
+0.41, 4th of 25 teams at 0.41 (rank 139); one team at 0.42. Submissions on 12 Nov:
+`blendW_thr50` 0.41, `blend41_thr50_thick40` 0.41 (neither moved the position); 3 left.
+Best file: `blend41_thr50.csv` or `blend41_thr60.csv` (submitted together on 11 Nov).
+
+## The lead being followed
+The test set is triple-annotated photographs labelled by groups 0101/0102/0104/0501
+(`docs/06_test_population.md`). Kernel `cosmicwitness/sol-exp202-target-ft-t4` fine-tunes
+the deployed model on those groups' training records (pushed 15:24 UTC, about 2.6 h).
+When it finishes:
+1. `kaggle kernels status cosmicwitness/sol-exp202-target-ft-t4`, then
+   `kaggle kernels output cosmicwitness/sol-exp202-target-ft-t4 -p /home/user/work/caches/exp202`.
+   Outputs: `ftA/`, `ftB/` (events.log, `e00N_cache.json` single-view validation
+   candidates as {photo: [{score, rle}]}, `model_e00N.pt`), `selection.json`,
+   `d4_best/{val,test}_cache.json` (zoo format, full + d4), `test_ft?_e00N/test_cache.json`.
+2. Score every epoch by population with the pattern of `analysis/bygroup.py`; the bar is
+   the deployed model: 0.4570 on target records, 0.4539 on triple-annotated photographs,
+   0.4705 on all (single view, floor 0.85).
+3. If a checkpoint clears the bar by about 0.01 or more: build its single-view test file
+   (floor chosen on target records) and its eight-view consensus, submit, and consider a
+   second kernel (all 623 target records including validation, or a three-model consensus
+   with the fine-tuned model in place of e40).
+4. If not: the remaining slots go to vote variants in `/home/user/work/subs/`
+   (`blend8_thr38.csv`, `blend41_thr60_thick40.csv`, `blendW_thr40.csv`).
 
 ## Where things are
 - Kaggle CLI: `export KAGGLE_USERNAME=cosmicwitness KAGGLE_KEY=placeholder` (the proxy
