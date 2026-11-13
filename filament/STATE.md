@@ -37,10 +37,11 @@ planned; two fine-tunes gave nothing).
 ## Next actions
 1. From 00:00 UTC on 14 Nov: changes relative to c1 (objects with v>=5, or v==4 and
    e40>=0.86), one at a time with a position check; keep a change only if the team
-   passes another team (or the score shows 0.42). Order: drop the five-vote objects
-   (validation-neutral, 42 objects); add the high-confidence three-vote objects (21);
-   then groups defined by agreement with the new consensus files. After a pass, build the
-   next change on the passing file.
+   passes another team (or the score shows 0.42). Order: `climb/e2_c1_plus_cons4_minus_cons0.csv`
+   (validation-supported second-opinion step, +36 / -30 objects); if it does not pass,
+   `e1_c1_plus_cons4.csv` (the addition alone, +0.0018 on the validation analogue), then
+   the validation-neutral vote-count variants `d1_c1_minus_v5.csv`, `d2_c1_plus_v3hi.csv`.
+   After a pass, build the next change on the passing file (`analysis/climb3.py`).
 2. Email hourly while the session runs; log every submission in LOG.md.
 
 ## Where things are

@@ -464,3 +464,16 @@ therefore specific to the public photographs. Groups that are neutral on validat
 (dropping the five-vote objects, adding the high-confidence three-vote objects) are the
 candidates for the next steps; each is close to a coin flip with a scatter of 0.001 to
 0.002.
+
+**01:30** A second opinion for the vote objects (`analysis/climb2.py`): how many of five
+independently built mean-score consensus files contain each object. Of the 24
+high-confidence four-vote objects that c1 keeps, 17 are in at least four of the five; of
+the 23 it drops, 13 are in none. A validation analogue with independent model families
+(`analysis/second_opinion_val.py`: a vote of eight files from the e40 recipe family, five
+files from the Swin-S and Swin-B hold-out models as second opinion) supports the
+principle: adding objects outside the vote that at least four second-opinion files
+contain gains +0.0018 (positive in 94 % of 90-photograph resamples); dropping vote
+objects none of them contains gains +0.0006 (67 %). Files for 14 November
+(`analysis/climb3.py`): `climb/e2_c1_plus_cons4_minus_cons0.csv` (c1 plus 36 low-vote
+objects with second-opinion support, minus 30 without any), `e1_c1_plus_cons4.csv`,
+`e3_c1_minus_cons0.csv`, and the validation-neutral vote-count variants `d1` to `d5`.
