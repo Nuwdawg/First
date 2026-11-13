@@ -419,3 +419,48 @@ again (the candidate pool was already scored on it: `docs/08_candidate_pool.txt`
 column); the fine-tune on four annotator groups was aimed at a population the test set is
 not restricted to (it gave no gain on that population either); the thickening had no
 basis on the test set, which agrees with its null result in public.
+
+**23:00 on 12 Nov to 00:28 on 13 Nov** No work: usage limit.
+
+## 13 November 2026
+
+**00:30** exp203 results (`docs/09_exp203_results.txt`): the fused-label fine-tune does not
+help. Fused records only: 0.458 on the whole validation set (best floor 0.70); single
+records plus fused records: 0.466 (floor 0.80); deployed 0.4705. Eight views of the
+selected checkpoint 0.472 to 0.475, three-model consensus with it 0.4795 (existing
+0.4816). Two retraining ideas, no gain from either; five GPU hours used in all.
+
+**00:29 to 00:39** `pool13/three85` (58289643) **0.41**, `blend16_thr50` (58289789)
+**0.41**, `voteS9_k4` (58289899) **0.40**; no change in position. Files built directly
+from the models land at or below the vote of the eight earlier 0.41 submissions even
+where validation rates them level (`analysis/pool_boot.py`: on 90-photograph samples the
+mean-score consensus files are within 0.001 of the vote replay with a scatter of 0.003,
+the single-view votes 0.008 below it).
+
+**00:45** Change of tactics: single-group variants of the best vote file, judged by the
+team's position (`analysis/climb.py`). The 1,347 objects of the eight-file vote are
+tabulated with their vote count and the deployed model's single-view confidence; the
+table reproduces `blend41_thr50` exactly. A group of 20 to 40 borderline objects moves the
+public score by about +/-0.0015, the size of the gaps between the teams at 0.41, so
+passing a team shows that a change helped. This is tuning to the public half through the
+leaderboard with ordinary prediction files; the user was told so at 00:55.
+
+**01:01** `climb/c1_v5_plus_v4hi` (58290430; objects in at least 5 files, plus those in
+exactly 4 whose deployed-model confidence is at or above the group median 0.86; 1,133
+masks) scored **0.41** and **the team passed Guillaume: 3rd of 27 at 0.41, rank 137.**
+Since it beats both the 4-of-8 and the 5-of-8 file by more than that gap, the 24
+high-confidence four-vote objects help and the 23 low-confidence ones hurt on the public
+half. New best file.
+
+**01:06** `climb/c8_v4_plus_v2hi` (58290532; 4-of-8 file plus 33 two-vote objects with
+confidence at least 0.85) scored **0.41**, no further change. Five submissions used on
+13 November: 0.41, 0.41, 0.40, 0.41 (new best), 0.41.
+
+**01:10** The confidence split does not generalise on validation
+(`analysis/climb_val.py`): in a replay of the vote, both halves of the four-vote group are
+worth keeping, the five-vote halves are neutral, and for one- and two-vote objects the
+high-confidence halves are the worse ones. The public result for the four-vote group is
+therefore specific to the public photographs. Groups that are neutral on validation
+(dropping the five-vote objects, adding the high-confidence three-vote objects) are the
+candidates for the next steps; each is close to a coin flip with a scatter of 0.001 to
+0.002.

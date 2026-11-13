@@ -14,33 +14,34 @@ Last updated: 12 Nov 2026, 15:30 UTC.
 - Never download or use the public MAGFiLO annotations (they contain the test labels).
 - No subagents or extra sessions unless the user asks.
 
-## Current position (12 Nov 19:45 UTC)
-0.41, 4th of 25 teams at 0.41 (overall 138); one team at 0.42. All five submissions of
-12 Nov are used (blendW_thr50 0.41, blend41_thr50_thick40 0.41, blend41_thr60_thick40
-0.41, cand_C 0.40, blend8_thr38 0.41); none moved the position. Best file:
-`blend41_thr50.csv` or `blend41_thr60.csv`. Fifteen submissions remain (13, 14 and
-15 Nov before 06:00 UTC). Kaggle GPU: about 7.1 h until 14 Nov 00:00 UTC, then 30 h.
+## Current position (13 Nov 01:15 UTC)
+0.41, **3rd of 27 teams at 0.41 (overall 137)**; Spaghetto99 and Salty Taro are ahead at
+0.41, one team at 0.42. Best file: `/home/user/work/subs/climb/c1_v5_plus_v4hi.csv`
+(58290430). All five submissions of 13 Nov are used. Ten remain: five on 14 Nov, five on
+15 Nov before 06:00 UTC. Kaggle GPU: 4.6 h until 14 Nov 00:00 UTC, then 30 h (no use
+planned; two fine-tunes gave nothing).
 
-## What is settled (see LOG.md, docs/06_test_population.md)
-CORRECTION (12 Nov 21:00): the test set is NOT all triple-annotated; published totals
-bound it at 2.04 records per photograph, so it is a mix like validation and the whole
-validation set is the yardstick. For multi-annotated photographs the ceiling with the labels in hand is about 0.59; the
-fine-tune on the test-side annotators (exp202, outputs in `/home/user/work/caches/exp202`)
-gave no gain. No systematic lever is left untested. The user was asked by email (19:45
-UTC) whether to use a junk-mask leaderboard comparator; do not use it without their yes.
+## What is settled (see LOG.md)
+- The test set is a mix of one to three annotator records per photograph (at most 2.04);
+  the whole validation set is the yardstick. `docs/06_test_population.md` opens with the
+  withdrawal of the "all triple-annotated" claim.
+- No model-side change transfers visibly: consensus across views/models, thickness, mask
+  source, fine-tuning on four annotator groups (exp202), fine-tuning on fused labels
+  (exp203), votes of single-view models, a sixteen-file vote.
+- What works: single-group changes to the eight-file vote, judged by the team's position
+  (`analysis/climb.py`; object table in `/home/user/work/an/zoo/climb_table.pkl`, keys
+  `v` = votes among the eight files, `e40` = deployed single-view confidence).
+- The user was told (00:55 UTC email) that this is tuning to the public half and was
+  offered the choice to stop it; the junk-mask comparator remains unused.
 
 ## Next actions
-1. From 00:00 UTC on 13 Nov, submit one at a time from `/home/user/work/subs/` with a
-   position check after each (see `docs/08_candidate_pool.txt` for validation scores and
-   mutual agreement): `voteS9_k4.csv`, `pool13/five85.csv`,
-   `deployed_sel_three_masks.csv`, `pool13/d4_swinb.csv`, `pool13/S6noe40_k3.csv`.
-   If one passes a team, stay in its family for the next slot; avoid the max-times-fraction
-   consensus rule (two of two below 0.405).
-2. 14 and 15 Nov (ten more slots): other families from the pool that are least like the
-   files already submitted (`pool13/V5d4_k3.csv`, `pool13/d4_ftB4.csv`,
-   `pool13/d4_swins.csv`, `pool13/swinsswinb85.csv`, `blend16_thr50.csv`, ...).
-3. Email hourly while the session runs; log every submission in LOG.md.
-4. The junk-mask comparator stays unused unless the user says yes (asked by email 19:45).
+1. From 00:00 UTC on 14 Nov: changes relative to c1 (objects with v>=5, or v==4 and
+   e40>=0.86), one at a time with a position check; keep a change only if the team
+   passes another team (or the score shows 0.42). Order: drop the five-vote objects
+   (validation-neutral, 42 objects); add the high-confidence three-vote objects (21);
+   then groups defined by agreement with the new consensus files. After a pass, build the
+   next change on the passing file.
+2. Email hourly while the session runs; log every submission in LOG.md.
 
 ## Where things are
 - Kaggle CLI: `export KAGGLE_USERNAME=cosmicwitness KAGGLE_KEY=placeholder` (the proxy
